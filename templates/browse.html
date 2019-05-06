@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% set browse_active = True %}
+{%block title %}Browse{% endblock %}
+
+{%block content %}
+    <h1>Catalogue</h1>
+    <hr>
+    {% for row in data %}
+        <div class="row">
+        {% for item in row %}
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="static/images/{{item.image}}" alt="Image of {{item.name}}"
+                onerror="this.src = 'static/no-image.png'">
+                <div class="card-body">
+                    <h5 class="card-title">{{item.name}}</h5>
+                    <p class="card-text">
+                        <p><b>Stock</b>: 
+                            {% if item.in_stock %}
+                                <span class="in-stock">In stock</span>
+                            {% else %}
+                                <span class="out-of-stock">Out of stock</span>
+                            {% endif %}
+                        </p>
+                        <p><b>ID:</b> {{item.item_id}}</p>
+                        <p><b>Category:</b> {{item.category}}</p>
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {%endfor %}
+{% endblock %}

@@ -1,0 +1,14 @@
+FOR item in items
+    <div class="card">
+        <img src="item.prod_img">
+        <div class="card-body">
+            <h5>item.prod_name - item.prod_price</h5>
+            IF item.prod_stock == instock
+                <p style="color: green;">In stock</p>
+            ELSE
+                <p> style="color: red;">Out of stock</p>
+            ENDIF
+            <p>SKU: item.prod_sku</p>
+        </div>
+    </div>
+ENDFOR
