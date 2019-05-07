@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% set help_active = True %}
+{%block title %}Help{% endblock %}
+
+{%block content %}
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Green Green Gardens Help Centre</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Your ticket has been successfully ignored. Thanks for shopping at Green Green Gardens.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <h1>Help</h1>
+    <hr>
+    <p>Welcome to the <b>Green Green Gardens Help Centre</b>. Please file your ticket below.</p>
+    <form>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Shane Dinkum">
+        </div>
+        <div class="form-group">
+                <label for="email">Electronic mail contact address</label>
+                <input type="email" class="form-control" id="email" placeholder="shane.dinkum@brisbaneplumbing.com.au">
+        </div>
+        <div class="form-group">
+                <label for="issue">What is your issue?</label>
+                <select class="form-control" id="issue">
+                        <option disabled selected>Select an issue...</option>
+                        <option>Your website was too amazing for my tastes</option>
+                        <option>I couldn't use your website because I am computer illeterate</option>
+                        <option>I encountered an error due to misuse of the website</option>
+                        <option>I have no issue.</option>
+                </select>
+        </div>
+        <div class="form-group">
+                <label for="contents">Describe your issue...</label>
+                <textarea class="form-control" id="contents" rows="3" placeholder="Green Green Gardens is awesome."></textarea>
+        </div>
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal">Submit issue</button>
+    </form>
+{% endblock %}

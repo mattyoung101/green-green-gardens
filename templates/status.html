@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% set status_active = True %}
+{%block title %}Status{% endblock %}
+
+{%block content %}
+    <h1>Status</h1>
+    <hr>
+    <h3 class="in-stock">&#9745; The website is functional.</h3>
+    <br>
+    <p><b>Uptime: </b> 100.0%</p>
+    <p>In case of any errors, please contact: <code>/dev/null</code></p>
+{% endblock %}

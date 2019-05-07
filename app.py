@@ -10,6 +10,9 @@ class StoreItem:
     in_stock: bool
     image: str
     category: str
+    saleprice: str
+    prodprice: str
+    sku: str
 
 def chunks(l, n):
     n = max(1, n)
@@ -27,13 +30,24 @@ def browse():
                 name=line[1],
                 in_stock=line[2] == "instock",
                 image=line[3],
-                category=line[7] # TODO format category
+                category=line[7], # TODO format category,
+                saleprice=line[4],
+                prodprice=line[5],
+                sku=line[6]
                 ))
     return render_template("browse.html", data=chunks(data, 3))
 
 @app.route("/")
 def home():
     return render_template("home.html")
+
+@app.route("/status")
+def status():
+    return render_template("status.html")
+
+@app.route("/help")
+def help():
+    return render_template("help.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

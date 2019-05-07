@@ -4,6 +4,7 @@
 
 {%block content %}
     <h1>Catalogue</h1>
+    <p>Welcome to the catalogue of <b>Green Green Gardens</b>. Feel free to peruse our wares and acquire them at your choosing.</p>
     <hr>
     {% for row in data %}
         <div class="row">
@@ -13,6 +14,7 @@
                 onerror="this.src = 'static/no-image.png'">
                 <div class="card-body">
                     <h5 class="card-title">{{item.name}}</h5>
+                    <hr>
                     <p class="card-text">
                         <p><b>Stock</b>: 
                             {% if item.in_stock %}
@@ -22,7 +24,9 @@
                             {% endif %}
                         </p>
                         <p><b>ID:</b> {{item.item_id}}</p>
-                        <p><b>Category:</b> {{item.category}}</p>
+                        <p><b>Price:</b> {{item.prodprice}} (sale price: {{item.saleprice}})</p>
+                        <p><b>SKU:</b> {{item.sku}}</p>
+                        <!--<p><b>Category:</b> {{item.category}}</p>-->
                     </p>
                 </div>
             </div>
