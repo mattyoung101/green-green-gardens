@@ -11,6 +11,18 @@
             <button class="btn btn-success">Search</button>
         </div>
     </form>
+    <br>
+    <form>
+        <div class="d-flex">
+            <select class="form-control mr-1" id="filter" name="filter">
+                <option disabled selected>Select a category...</option>
+                {% for category in categories %}
+                    <option value="{{category}}">{{category}}</option>
+                {% endfor %}
+            </select>
+            <button class="btn btn-success">Filter</button>
+        </div>
+    </form>
     {%if query != None %}
         <br>
         <p>Results for: <b>{{query}}</b>:</p>

@@ -4,6 +4,10 @@ from dataclasses import dataclass
 import random
 app = Flask(__name__)
 
+# TODO add documentation
+
+flatten = lambda l: [item for sublist in l for item in sublist]
+
 @dataclass
 class StoreItem:
     item_id: int
@@ -19,18 +23,23 @@ def chunks(l, n):
     n = max(1, n)
     return (l[i:i+n] for i in range(0, len(l), n))
 
+def slug_to_sentence(slug):
+    return " ".join([x.title() for x in slug.split("-")]).strip()
+
 def read_csv():
     data = []
     with open("GE_data.csv", "r", encoding="utf-8") as f:
         reader = csv.reader(f)
         lines = [x for x in reader]
         for line in lines[1::]:
+            categories = [slug_to_sentence(x.replace("product_cat", "")) for x in line[7].split(",")]
+
             data.append(StoreItem(
                 item_id=int(line[0]),
                 name=line[1],
                 in_stock=line[2] == "instock",
                 image=line[3],
-                category=line[7], # TODO format category,
+                category=categories,
                 saleprice=line[4],
                 prodprice=line[5],
                 sku=line[6]
@@ -40,7 +49,8 @@ def read_csv():
 @app.route("/browse")
 def browse():
     data = read_csv()
-    return render_template("browse.html", data=chunks(data, 3), query=request.args.get("q"))
+    all_categories = sorted(list(set(flatten([x.category for x in data]))))
+    return render_template("browse.html", data=chunks(data, 3), query=request.args.get("q"), categories=all_categories)
 
 @app.route("/")
 def home():
