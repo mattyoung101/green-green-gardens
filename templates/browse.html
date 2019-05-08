@@ -5,11 +5,21 @@
 {%block content %}
     <h1>Catalogue</h1>
     <p>Welcome to the catalogue of <b>Green Green Gardens</b>. Feel free to peruse our wares and acquire them at your choosing.</p>
+    <form>
+        <div class="d-flex">
+            <input class="form-control mr-1" name="q" id="searchbox" placeholder="e.g. &quot;mushrooms&quot;">
+            <button class="btn btn-success">Search</button>
+        </div>
+    </form>
+    {%if query != None %}
+        <br>
+        <p>Results for: <b>{{query}}</b>:</p>
+    {% endif %}
     <hr>
     {% for row in data %}
         <div class="row">
         {% for item in row %}
-            <div class="card" style="width: 18rem;">
+            <div class="card" style="width: 18rem;" data-name="{{item.name}}">
                 <img class="card-img-top" src="static/images/{{item.image}}" alt="Image of {{item.name}}"
                 onerror="this.src = 'static/no-image.png'">
                 <div class="card-body">
@@ -33,4 +43,34 @@
         {% endfor %}
         </div>
     {%endfor %}
+{% endblock %}
+
+{%block scripts %}
+<script>
+// could use something like Vue for this, but its just an IT assignment
+/*$(document).ready(function(){
+    // TODO DO THIS SERVER SIDE INSTEAD
+    $("#searchbox").keyup(function(){
+        let query = $(this).val().toLowerCase();
+
+        if (query == ""){
+            // clear filters
+            $('.card').each(() => {
+                $(this).show();
+            });
+        } else {
+            // search for the query
+            for (let card of $('.card')){
+                let name = $(card).attr("data-name").toLowerCase();
+
+                if (name.indexOf(query) == -1){
+                    $(card).hide();
+                } else {
+                    $(card).show();
+                }
+            }
+        }
+    });
+});*/
+</script>
 {% endblock %}

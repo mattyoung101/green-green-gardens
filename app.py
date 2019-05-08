@@ -1,6 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import csv
 from dataclasses import dataclass
+import random
 app = Flask(__name__)
 
 @dataclass
@@ -18,8 +19,7 @@ def chunks(l, n):
     n = max(1, n)
     return (l[i:i+n] for i in range(0, len(l), n))
 
-@app.route("/browse")
-def browse():
+def read_csv():
     data = []
     with open("GE_data.csv", "r", encoding="utf-8") as f:
         reader = csv.reader(f)
@@ -35,11 +35,18 @@ def browse():
                 prodprice=line[5],
                 sku=line[6]
                 ))
-    return render_template("browse.html", data=chunks(data, 3))
+    return data
+
+@app.route("/browse")
+def browse():
+    data = read_csv()
+    return render_template("browse.html", data=chunks(data, 3), query=request.args.get("q"))
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    data = read_csv()
+    random.shuffle(data)
+    return render_template("home.html", data=data[0:3])
 
 @app.route("/status")
 def status():
